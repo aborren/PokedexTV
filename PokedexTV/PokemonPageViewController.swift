@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import AVFoundation
 
 class PokemonPageViewController: UIPageViewController {
 
     var pokemonIndex = 1
     var nextPokemonIndex = 1
+    var player = AVAudioPlayer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +21,11 @@ class PokemonPageViewController: UIPageViewController {
         delegate = self
         self.view.backgroundColor = UIColor.clearColor()
         setViewControllers([self.getDetailsViewControllerWithIndex(pokemonIndex)], direction: .Forward, animated: true, completion: nil)
+        
+        let playPauseRecognizer = UITapGestureRecognizer(target: self, action: "playPauseRecognizer")
+        playPauseRecognizer.allowedPressTypes = [NSNumber(integer:UIPressType.PlayPause.rawValue)]
+        
+        self.view.addGestureRecognizer(playPauseRecognizer)
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,6 +42,19 @@ class PokemonPageViewController: UIPageViewController {
         }
         
         return UIViewController()
+    }
+    
+    func playPauseRecognizer() {
+        let index = Utilities.formattedPokemonIndex(pokemonIndex)
+        
+        if let url = NSBundle.mainBundle().URLForResource("\(index)", withExtension: "wav") {
+            do { player = try AVAudioPlayer(contentsOfURL: url, fileTypeHint: nil) }
+            catch let error as NSError { print(error.description) }
+            
+            player.numberOfLoops = 0
+            player.prepareToPlay()
+            player.play()
+        }
     }
     
 }

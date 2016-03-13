@@ -2,6 +2,7 @@
   "images" : [
     {
       "idiom" : "tv",
+      "filename" : "Pokedex.png",
       "scale" : "1x"
     }
   ],
