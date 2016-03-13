@@ -89,4 +89,4 @@ fastlane/report.xml
 fastlane/screenshots
 
 # Pokemon sounds
-*.wav
+*.mp3

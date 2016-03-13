@@ -47,7 +47,7 @@ class PokemonPageViewController: UIPageViewController {
     func playPauseRecognizer() {
         let index = Utilities.formattedPokemonIndex(pokemonIndex)
         
-        if let url = NSBundle.mainBundle().URLForResource("\(index)", withExtension: "wav") {
+        if let url = NSBundle.mainBundle().URLForResource("\(index)", withExtension: "mp3") {
             do { player = try AVAudioPlayer(contentsOfURL: url, fileTypeHint: nil) }
             catch let error as NSError { print(error.description) }
             
